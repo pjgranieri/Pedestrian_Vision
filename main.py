@@ -3,11 +3,11 @@
 ##################################################################################################
 
 #IMPORT FILES
-import RickyZhao as RZ
-import AnthonySpadafore as AS
-import PJGranieri as PJ
-import ZacharyMcPherson as ZM
-import ManelinRajan as MR
+import stop_sign_processor
+import walk_sign_processor
+import street_sign_processor
+import depth_perception_processor
+import crosswalk_processor
 from printResults import printResults
 
 #IMPORT LIBRARIES
@@ -80,47 +80,47 @@ for filename in files:
     #STOP AND WALK SIGNAL DETECTION
     print("---------------------------------------------------------------------------")
     print("FUNCTION: stopSignalDetection")
-    ASresult1 = AS.stopSignalDetection(originalHSV, stop_template, isNight=True, debug=False)
+    stop_signal_result = walk_sign_processor.stopSignalDetection(originalHSV, stop_template, isNight=True, debug=False)
     print("---------------------------------------------------------------------------")
     print("FUNCTION: walkSignalDetection")
-    ASresult2 = AS.walkSignalDetection(originalHSV, walk_template, isNight=True, debug=False)
+    walk_signal_result = walk_sign_processor.walkSignalDetection(originalHSV, walk_template, isNight=True, debug=False)
     
     #STOP SIGN DETECTION
     print("---------------------------------------------------------------------------")
     print("FUNCTION: stop_sign_detected")
-    RZresult = RZ.stop_sign_detected(file, debug=False)
+    stop_sign_result = stop_sign_processor.stop_sign_detected(file, debug=False)
 
     #STREET SIGN DETECTION
     print("---------------------------------------------------------------------------")
     print("FUNCTION: detect_street_signs")
-    PJresultTuples, PJresultNames = PJ.detect_street_signs(file, debug=False)    
+    street_sign_tuples, street_sign_names = street_sign_processor.detect_street_signs(file, debug=False)    
 
-    #STREET SIGN DETECTION
+    #CROSSWALK DETECTION
     print("---------------------------------------------------------------------------")
     print("FUNCTION: detect_crosswalk")
-    MRresult= MR.detect_crosswalk(file, debug=False)    
+    crosswalk_result = crosswalk_processor.detect_crosswalk(file, debug=False)    
 
     # #DISPLAY DETECTION MASKS
     # plt.figure(figsize=[10, 30])
-    # plt.subplot(321); plt.imshow(ASresult1[2], cmap='gray'); plt.title(f'Stop Signal Mask (found = {ASresult1[1]})'); plt.axis('off')
-    # plt.subplot(322); plt.imshow(ASresult2[2], cmap='gray'); plt.title(f'Walk Signal Mask (found = {ASresult2[1]})'); plt.axis('off')
-    # plt.subplot(323); plt.imshow(RZresult[2], cmap='gray'); plt.title(f'Stop Sign Mask (found = {RZresult[1]})'); plt.axis('off')
-    # plt.subplot(324); plt.imshow(PJresultTuples[0][2], cmap='gray'); plt.title(f'Street Sign Mask (found = {PJresultTuples[0][1]})'); plt.axis('off')
-    # plt.subplot(325); plt.imshow(MRresult[2], cmap='gray'); plt.title(f'Crosswalk Mask (found = {MRresult[1]})'); plt.axis('off')
+    # plt.subplot(321); plt.imshow(stop_signal_result[2], cmap='gray'); plt.title(f'Stop Signal Mask (found = {stop_signal_result[1]})'); plt.axis('off')
+    # plt.subplot(322); plt.imshow(walk_signal_result[2], cmap='gray'); plt.title(f'Walk Signal Mask (found = {walk_signal_result[1]})'); plt.axis('off')
+    # plt.subplot(323); plt.imshow(stop_sign_result[2], cmap='gray'); plt.title(f'Stop Sign Mask (found = {stop_sign_result[1]})'); plt.axis('off')
+    # plt.subplot(324); plt.imshow(street_sign_tuples[0][2], cmap='gray'); plt.title(f'Street Sign Mask (found = {street_sign_tuples[0][1]})'); plt.axis('off')
+    # plt.subplot(325); plt.imshow(crosswalk_result[2], cmap='gray'); plt.title(f'Crosswalk Mask (found = {crosswalk_result[1]})'); plt.axis('off')
     # plt.show()
 
     #CREATE result_list
-    result_list.append(ASresult1)
-    result_list.append(ASresult2)
-    result_list.append(RZresult)
-    for tup in PJresultTuples:
+    result_list.append(stop_signal_result)
+    result_list.append(walk_signal_result)
+    result_list.append(stop_sign_result)
+    for tup in street_sign_tuples:
         result_list.append(tup)
-    result_list.append(MRresult)
+    result_list.append(crosswalk_result)
     
     #PASS result_list TO findDepth
     print("---------------------------------------------------------------------------")
     print("FUNCTION: findDepth")
-    ZMResult = ZM.findDepth(originalRGB, result_list, "DPT_Large", debug=True)
+    depth_result = depth_perception_processor.findDepth(originalRGB, result_list, "DPT_Large", debug=True)
 
     #CALL printResults
-    printResults(ZMResult, PJresultNames)
+    printResults(depth_result, street_sign_names)
