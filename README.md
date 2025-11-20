@@ -1,16 +1,16 @@
 # Pedestrian Vision  
 
-## Team Members  
-- PJ Granieri: pjg44@pitt.edu (Street Sign Detection)
-- Ricky Zhao: riz12@pitt.edu (Stop Sign and Traffic Light Detection)
-- Zachary McPherson: zpm12@pitt.edu (Depth Perception)
-- Anthony Spadafore: ams871@pitt.edu (Walk Sign Detection)
-- Manelin John Rajan: maj214@pitt.edu (Crosswalk Detection)
+## Authors  
+- PJ Granieri: Street Sign Detection
+- Ricky Zhao: Stop Sign and Traffic Light Detection
+- Zachary McPherson: Depth Perception
+- Anthony Spadafore: Walk Sign Detection
+- Manelin John Rajan: Crosswalk Detection
 
 ---
 
 ## Overview
-The purpose of this program is to aid visually impaired individuals as they traverse through spaces in their daily lives. In a general sense, what our program will do is utilize an image of an individual’s forward visual field and essentially narrate the physical scenario to the individual, providing crucial information for safe and accurate transportation.  
+The purpose of this program is to aid visually impaired individuals as they traverse through spaces in their daily lives. In a general sense, what our program will do is utilize an image of an individual’s forward visual field and essentially narrate the physical scenario to the individual, providing crucial information for safe and accurate transportation. This project was for ECE 1390: Image Processing at the University of Pittsburgh. 
 
 ---
 
@@ -118,7 +118,6 @@ Mitigation: Fine tune thresholding and filtering; use other detected objects to 
 Issue: Template matching algorithm took a relatively long time to execute, effectively limiting framerate.
 
 Mitigation: Develop more efficient filtering methods, reducing reliability on template matching.
-
 
 
 
